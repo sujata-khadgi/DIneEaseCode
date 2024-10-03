@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}</head>
+<body>
+    <div class="container">
+        <ul class="nav bg-info">
+          <li class="nav-item">
+            <a class="nav-link link-light" href="/">HOME</a>
+          </li>
+            <li class="nav-item">
+              {{request.user}}
+            </li>
+            {% if request.user.is_authenticated %}
+           
+            <li class="nav-item">
+              <a class="nav-link link-light" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link link-light" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-light" href="{% url 'register' %}">Register</a>
+            </li>
+            {% endif %}
+          </ul>
+
+{% block content %}
+{% endblock %}
+</body>
+
+</html>
