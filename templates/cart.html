@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Cart ({{ cart_products.count }} items)</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price (NPR)</th>
+            <th>Subtotal (NPR)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_products %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>
+                <form action="{% url 'update_cart_item' item.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td>NPR {{ item.product.price|floatformat:2 }}</td>
+            <td>NPR {{ item.subtotal|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3"><strong>Total</strong></td>
+            <td><strong>NPR {{ total_price|floatformat:2 }}</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="cart-summary">
+    <p><span>Total:</span> NPR {{ total_price|floatformat:2 }}</p>
+    <button id="checkout-button" onclick="window.location.href='{% url 'checkout' %}'">Checkout</button>
+</div>
+{% endblock %}

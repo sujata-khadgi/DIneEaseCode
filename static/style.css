@@ -1,85 +1,486 @@
-/* General Body Styles */
+/* General layout adjustments */
 body {
-    font-family: 'Arial', sans-serif; /* Change to your preferred font */
-    line-height: 1.6;
-}
-
-/* Registration Container */
-.registration-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #dee2e6;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-/* Form Title */
-.form-title {
-    text-align: center;
-    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('/media/back.jpg'); /* Path for background image */
+    background-size: cover;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
     color: #333;
-    margin-bottom: 20px;
 }
 
-/* Form Group */
-.form-group {
-    margin-bottom: 20px;
+/* Login Page Styling */
+.login-container {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
 }
 
-/* Labels */
-label {
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 120%;
+}
+
+.login-form-container h2 {
+    font-size: 2rem;
+    color: #800000;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
     display: block;
-    margin-bottom: 5px;
+    font-size: 13px; /* Adjust to make the font smaller */
+    text-align: left;
+}
+
+.form-group input {
+    width: 100%; /* Adjust width as needed */
+    padding: 9px; /* Add padding */
+    margin-bottom: 10px; /* Add spacing between fields */
+    font-size: 13px; /* Adjust font size */
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.form-field input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-field .icon {
+    color: #800000;
+    font-size: 1.2rem;
+}
+
+.login-button {
+    background-color: #800000;
+    color: white;
+    padding: 0.75rem;
+    width: 50%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #a52a2a;
+}
+
+.login-footer {
+    margin-top: 1rem;
+}
+
+.login-footer a {
+    color: #800000;
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Login Image Section */
+.login-image-container {
+    background-image: url("/media/back.jpg"); /* Update path */
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+    color: rgb(255, 255, 255);
     font-weight: bold;
-    color: #555;
-}
-
-/* Input Fields */
-.form-control {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 400px;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
+    border-radius: 10px;
 }
 
-.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+.login-image-container h2 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Error Messages */
-.error-message {
-    color: #d9534f; /* Bootstrap danger color */
+/* Hero Section */
+.hero-section {
+    background-image: url('/path/to/hero/image.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Featured Products */
+.featured-products {
+    padding: 40px 20px;
+    background-color: #fff;
+}
+
+.featured-products h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 0 20px;
+}
+
+.product {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    width: 100%;
+    border-radius: 8px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Product Details */
+.product h2 {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.product p.price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff;
+    margin: 10px 0;
+}
+
+.product p.description {
     font-size: 0.9em;
-    margin-top: 5px;
+    color: #555;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-/* Button Styles */
-.btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff; /* Primary button color */
+/* Quantity Selector */
+.quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity button {
+    background-color: #00c4ff;
     color: white;
     border: none;
+    padding: 6px;
     border-radius: 4px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    transition: background-color 0.3s;
+}
+
+.quantity button:hover {
+    background-color: #0099cc;
+}
+
+.quantity input[type="number"] {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* Add to Cart Button */
+.btn-primary {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 90%;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #343a40;
+    color: #fff;
+    font-size: 16px;
+}
+
+.nav-left {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-middle {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between the links */
+}
+
+.nav-right a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-right a:hover {
+    color: #ddd;
+}
+
+/* Search Bar */
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    outline: none;
+}
+
+.search-button {
+    width: 45px; /* Adjusted width */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #1e00b3;
+}
+
+/* Add this if you want to add icons */
+.fas {
+    margin-right: 5px;
+}
+/* Register Page Styling */
+.register-container {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.register-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 120%;
+}
+
+.register-form-container h2 {
+    font-size: 2rem;
+    color: #800000;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px; /* Adjust to make the font smaller */
+    text-align: left;
+}
+
+.form-group input {
+    width: 100%; /* Adjust width as needed */
+    padding: 9px; /* Add padding */
+    margin-bottom: 10px; /* Add spacing between fields */
+    font-size: 13px; /* Adjust font size */
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.form-field input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-field .icon {
+    color: #800000;
+    font-size: 1.2rem;
+}
+
+.register-button {
+    background-color: #800000;
+    color: white;
+    padding: 0.75rem;
+    width: 50%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.register-button:hover {
+    background-color: #a52a2a;
+}
+
+.register-footer {
+    margin-top: 1rem;
+}
+
+.register-footer a {
+    color: #800000;
+    text-decoration: none;
+}
+
+.register-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Register Image Section */
+.register-image-container {
+    background-image: url("/media/back.jpg"); /* Update path */
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.register-image-container h2 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+  
+/* Cart Page Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+thead th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Checkout Button */
+#checkout-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.btn:hover {
+#checkout-button:hover {
     background-color: #0056b3;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    .registration-container {
-        width: 90%;
-        padding: 15px;
-    }
-
-    .form-title {
-        font-size: 20px;
-    }
 }

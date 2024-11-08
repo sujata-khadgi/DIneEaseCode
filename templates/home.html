@@ -1,15 +1,55 @@
 {% extends "base.html" %}
 
-{%block content%}
-<section class = "product-list">
-    {% for product in products %}
-    <div class="product">
-        <img width="100" src={{product.image.url}} alt="Product 1">
-        <h2>{{product.name}}</h2>
-        <p>${{product.price}}</p>
-        <p>{{product.description}}</p>
-        <button>Add to Cart</button>
-    </div>
-    {% endfor %}
+{% block title %}Welcome to Our Food Ordering Service{% endblock %}
 
-{%endblock%}
+{% block content %}
+<div class="hero-section">
+    <h1>Delicious Meals Delivered to Your Door!</h1>
+    <p>Browse our menu and enjoy the best food in town.</p>
+</div>
+
+<section class="featured-products">
+    <h2>Featured Items</h2>
+    <div class="product-list">
+        {% for product in products %}
+        <div class="product" id="product-{{ forloop.counter }}">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h2>{{ product.name }}</h2>
+            <p class="price">NPR {{ product.price|floatformat:2 }}</p>
+            <p class="description">{{ product.description }}</p>
+
+            <div class="quantity">
+                <button type="button" onclick="decreaseQuantity('qty{{ forloop.counter }}')">-</button>
+                <input type="number" id="qty{{ forloop.counter }}" value="1" min="1" readonly>
+                <button type="button" onclick="increaseQuantity('qty{{ forloop.counter }}')">+</button>
+            </div>
+
+            <button class="btn-primary" onclick="addToCart('{{ product.name }}', 'qty{{ forloop.counter }}')">Add to Cart</button>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<script>
+    function increaseQuantity(id) {
+        const quantityInput = document.getElementById(id);
+        let currentQuantity = parseInt(quantityInput.value);
+        quantityInput.value = currentQuantity + 1;
+    }
+
+    function decreaseQuantity(id) {
+        const quantityInput = document.getElementById(id);
+        let currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > 1) {
+            quantityInput.value = currentQuantity - 1;
+        }
+    }
+
+    function addToCart(productName, quantityId) {
+        const quantityInput = document.getElementById(quantityId);
+        const quantity = quantityInput.value;
+        alert(`Added ${quantity} of ${productName} to the cart!`);
+        // Replace alert with actual cart logic as needed
+    }
+</script>
+{% endblock %}

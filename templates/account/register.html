@@ -1,14 +1,55 @@
 {% extends "base.html" %}
 
-{%block content%}
-<div class="registration-container">
-   
-    <form method="post">
-        {% csrf_token %}
-        {{form1}}
-        <button class="register-button" type="submit"  > Register</button>
+{% block content %}
+<div class="register-container">
+    <div class="register-form-container">
+        <h2>Create an Account</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            
+            <!-- Display form errors -->
+            {% if form1.non_field_errors %}
+                <div class="form-errors">
+                    {{ form1.non_field_errors }}
+                </div>
+            {% endif %}
+            
+            <!-- Render the form fields -->
+            <div class="form-group email-group">
+                {{ form1.email.label_tag }}
+                {{ form1.email }}
+                {% if form1.email.errors %}
+                    <div class="field-error">{{ form1.email.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group password-group">
+                {{ form1.password1.label_tag }}
+                {{ form1.password1 }}
+                {% if form1.password1.errors %}
+                    <div class="field-error">{{ form1.password1.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group password-group">
+                {{ form1.password2.label_tag }}
+                {{ form1.password2 }}
+                {% if form1.password2.errors %}
+                    <div class="field-error">{{ form1.password2.errors }}</div>
+                {% endif %}
+            </div>
 
-    </form>
+            <button type="submit" class="register-button">Register</button>
+        </form>
+
+        <div class="register-footer">
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+
+    <div class="register-image-container">
+        <h2>DineEase</h2>
+        <p>Quick Dining Solution</p>
+    </div>
 </div>
-<div class="registration-container"></div>
-{%endblock%}
+{% endblock %}

@@ -1,37 +1,84 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    
     {% load bootstrap5 %}
     {% bootstrap_css %}
-    {% bootstrap_javascript %}</head>
+    {% bootstrap_javascript %}
+
+    <!-- Link to general CSS file -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- Load login.css only for the login page -->
+    {% if request.resolver_match.url_name == 'login' %}
+        <link rel="stylesheet" href="{% static 'login.css' %}">
+    {% endif %}
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 <body>
-    <div class="container">
-        <ul class="nav bg-info">
-          <li class="nav-item">
-            <a class="nav-link link-light" href="/">HOME</a>
-          </li>
-            <li class="nav-item">
-              {{request.user}}
-            </li>
-            {% if request.user.is_authenticated %}
-           
-            <li class="nav-item">
-              <a class="nav-link link-light" href="{% url 'logout' %}">Logout</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link link-light" href="{% url 'login' %}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link link-light" href="{% url 'register' %}">Register</a>
-            </li>
-            {% endif %}
-          </ul>
+    <!-- Navbar (optional: only show if not on login page) -->
+    {% if request.resolver_match.url_name != 'login' %}
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-left">
+                    <a href="/" class="nav-brand"> DineEase </a>
+                </div>
+                <div class="nav-middle">
+                    <form class="search-form" action="{% url 'search_results' %}" method="get">
+                        <label for="search-query" class="visually-hidden">Search</label>
+                        <input type="text" id="search-query" name="query" placeholder="Search..." aria-label="Search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="nav-right">
+                    <a href="{% url 'cart' %}" class="nav-icon"><i class="fa fa-shopping-cart"></i> Cart</a>
+                    {% if request.user.is_authenticated %}
+                        <span class="nav-user">{{ request.user }}</span>
+                        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Login</a>
+                        <a href="{% url 'register' %}" class="nav-link">Register</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    {% endif %}
 
-{% block content %}
-{% endblock %}
+    <!-- Main Content -->
+    <div class="container my-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- JavaScript for Quantity Control -->
+    <script>
+        function increaseQuantity(id) {
+            const quantityInput = document.getElementById(id);
+            let currentQuantity = parseInt(quantityInput.value);
+            quantityInput.value = currentQuantity + 1;
+        }
+
+        function decreaseQuantity(id) {
+            const quantityInput = document.getElementById(id);
+            let currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+            }
+        }
+
+        function addToCart(productName, quantityId) {
+            const quantityInput = document.getElementById(quantityId);
+            const quantity = quantityInput.value;
+            alert(`Added ${quantity} of ${productName} to the cart!`);
+            // Add further cart logic here
+        }
+    </script>
 </body>
-
 </html>
+

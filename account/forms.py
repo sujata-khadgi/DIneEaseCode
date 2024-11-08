@@ -128,9 +128,13 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ('email',)
 
+
 class LoginForm(forms.Form):
-    email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(
+    email = forms.EmailField(
+        required=True,  # Ensure this is required if email is your username field
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+    )
+    password = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password-input'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
     )

@@ -1,14 +1,40 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{%block content%}
-<div class="registration-container">
-   
-    <form method="post">
-        {% csrf_token %}
-        {{form1}}
-        <button class="register-button" type="submit"  > Login</button>
+{% block content %}
+    <div class="login-container">
+        <div class="login-form-container">
+            <h2>Member Login</h2>
+            {% if request.GET.next %}
+                <p>You must log in to add items to your cart. Please login below.</p>
+            {% endif %}
+            <form method="post" action="{% url 'login' %}" novalidate>
+                {% csrf_token %}
+                <div class="form-group email-group">
+                    {{ form1.email.label_tag }}
+                    {{ form1.email }}
+                    {% if form1.email.errors %}
+                        <div class="field-error">{{ form1.email.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group password-group">
+                    {{ form1.password.label_tag }}
+                    {{ form1.password }}
+                    {% if form1.password.errors %}
+                        <div class="field-error">{{ form1.password.errors }}</div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="login-button">Login</button>
+            </form>            
 
-    </form>
-</div>
-<div class="registration-container"></div>
-{%endblock%}
+            <div class="login-footer">
+                <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+            </div>
+        </div>
+
+        <div class="login-image-container">
+            <h2>DineEase</h2>
+            <p>Quick Dining Solution</p>
+        </div>
+    </div>
+{% endblock %}
+
