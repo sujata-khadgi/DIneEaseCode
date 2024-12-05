@@ -144,15 +144,21 @@ body {
     margin-bottom: 30px;
 }
 
+@media (min-width: 1200px) {
+    .h3, h3 {
+        font-size: 1.00rem;
+    }
+}
 /* Featured Products */
 .featured-products {
     padding: 40px 20px;
     background-color: #fff;
+   
 }
 
 .featured-products h2 {
     text-align: center;
-    font-size: 2em;
+    font-size: 1em;
     margin-bottom: 30px;
 }
 
@@ -255,83 +261,160 @@ body {
     background-color: #218838;
 }
 
+* Body */
+body {
+    margin: 0; /* Removes default margin around the page */
+    padding: 0; /* Removes any default padding */
+}
+
 /* Navbar */
 .navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #343a40;
-    color: #fff;
-    font-size: 16px;
+    justify-content: space-between; /* Distributes content evenly */
+    align-items: center; /* Vertically aligns content */
+    padding: 10px 20px; /* Adjust padding inside the navbar as needed */
+    background-color: #f5f6f7; /* Light background color for the navbar */
+    color: #2a2b2c; /* Text color for navbar */
+    font-size: 16px; /* Base font size */
+    margin: 0; /* Ensures no margin around the navbar */
+    box-sizing: border-box; /* Ensures padding and border are included in width/height */
+}
+
+/* General container styling */
+.container {
+    max-width: 1000px; /* Limit the width of the container */
+    margin: 0 auto; /* Center the container */
+    padding: 0 0px; /* Add padding for spacing inside the container */
+    width: 3000%; /* Ensures the container spans full width on small screens */
+    box-sizing: border-box; /* Includes padding and border in the total width */
+    min-height: 10px; /* Set a minimum height for the container */
+}
+
+/* Responsive container adjustments */
+@media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 100%; /* 90% of the viewport width for larger screens */
+    }
+}
+
+/* Additional styling for small screens */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column; /* Stacks navbar content vertically */
+        text-align: center; /* Centers text for smaller screens */
+    }
+
+    .nav-left, .nav-middle, .nav-right {
+        margin-bottom: 10px; /* Adds spacing between sections */
+    }
+
+    .container {
+        padding: 0 10px; /* Reduce padding for smaller screens */
+    }
 }
 
 .nav-left {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #000000 !important;
     font-weight: bold;
 }
+.nav-leftt a:hover {
+    color: #000000;
+}
+.nav-brand {
+    color:#3a8f4e;
+    text-decoration: none; /* Optional: Remove underline from the link */
+    font-weight: bold; /* Optional: Make the text bold */
+    font-size: 40px;
+    font-family: 'Dancing Script', cursive;
+}
 
+.header-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #a11c1c;
+
+}
+
+.nav-brand a:hover {
+    color: #008cc4;
+}
 .nav-middle {
     flex-grow: 1;
     display: flex;
     justify-content: center;
+    font-weight: bold;
 }
-
+.nav-middle a:hover {
+    color: #008cc4;
+}
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 20px; /* Space between the links */
+    gap: 25px; /* Space between the links */
+    font-weight: bold;
 }
 
 .nav-right a {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
     font-size: 16px;
+    font-weight: bold;
 }
 
 .nav-right a:hover {
-    color: #ddd;
+    color: #008cc4;
 }
 
 /* Search Bar */
-.search-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.search-input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-right: none;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    outline: none;
-}
 
 .search-button {
-    width: 45px; /* Adjusted width */
-    background-color: #007bff;
-    color: white;
-    border: none;
+    background-color: #007bff;   /* Blue background */
+    color: #000000;                 /* White text */
+    border: none;                 /* No border */
+    padding: 12px 25px;           /* Increase padding for button size */
+    font-size: 18px;              /* Larger font size */
+    cursor: pointer;             /* Change cursor to pointer on hover */
     display: flex;
-    align-items: center;
+    align-items: top;
     justify-content: center;
-    cursor: pointer;
 }
 
 .search-button:hover {
-    background-color: #1e00b3;
+    background-color: #0056b3;   /* Darker blue on hover */
 }
 
-/* Add this if you want to add icons */
-.fas {
-    margin-right: 5px;
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Adds space above the search bar */
+    text-align: center;
 }
+
+.search-form input {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid#000000;
+    border-radius: 10px;
+    margin-right: 1px;
+    height: 28px;
+    align-items: center;
+    justify-content: center
+}
+
+.search-form button {
+    padding: 5px 10px;
+    background-color: #007bff00;
+    border: none;
+    color: #000000(255, 255, 255);
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    height: 35px;
+    margin-right: -250px;
+}
+
 /* Register Page Styling */
 .register-container {
     display: flex;
@@ -470,6 +553,278 @@ thead th {
     color: #333;
 }
 
+/* Menu Section */
+.menu-section {
+    padding: 40px 20px;
+    background-color: #fff;
+}
+    
+.menu-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: #000;
+    font-weight: bold;
+    padding: 20px 40px;
+    background-color: #fff;
+}
+
+/* Section Title Styling */
+.section-title {
+    text-align: center; /* Center the title */
+    color: rgb(0, 0, 0); /* White color for the title */
+    font-weight: bold; /* Make the title bold */
+    font-size: 2.5em; /* Adjust the font size as per your design */
+    margin-top: 40px; /* Add space above */
+    margin-bottom: 40px; /* Add space below */
+
+    
+.category-tabs {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.category-tab {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.category-tab:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.category-tab.active {
+    background-color: #007bff;
+    color: white;
+}
+
+
+/* Title for the Menu Section */
+.section-title {
+    color: black; /* Makes the text black */
+    font-weight: bold; /* Makes the text bold */
+    text-align: center; /* Centers the title */
+    padding: 20px 0; /* Adds padding above and below the title */
+    background-color: white; /* Optional: Adds a white background */
+    margin: 0; /* Removes any default margin */
+}
+
+/* Menu Section Styling */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.category-tab {
+    padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid black;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.category-tab.active {
+    background-color: black;
+    color: white;
+}
+
+.category-tab:hover {
+    background-color: #e0e0e0;
+}
+
+.menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.menu-item {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    display: none; /* Hide all items by default */
+}
+
+.menu-item.all {
+    display: block; /* Show 'all' items by default */
+}
+
+.menu-section {
+    padding: 40px 20px;    /* Add padding for spacing */
+    background-color: #f8f8f8; /* Optional: background color for the section */
+}
+
+.menu-filter-btn {
+    padding: 10px 20px; /* Adjust for better spacing */
+    margin: 5px; /* Add spacing between buttons */
+    border: 2px solid black; /* Keep or adjust the border style */
+    background-color: #f9f9f9; /* Light gray background for better contrast */
+    border-radius: 5px; /* Rounded corners for a modern look */
+    cursor: pointer; /* Pointer to indicate it's clickable */
+    font-size: 16px; /* Adjust font size for readability */
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s; /* Add hover transition */
+}
+
+.menu-filter-btn:hover {
+    background-color: #e0e0e0; /* Slightly darker on hover */
+    color: black; /* Optional hover text color */
+}
+
+.menu-filter-btn.active {
+    background-color: black; /* Active button background */
+    color: white; /* Active button text color */
+    border-color: black; /* Match the border color with the background */
+}
+
+/* Category Tabs */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.category-tab {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.category-tab:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.category-tab.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Product List */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 0 20px;
+}
+
+/* Product Card */
+.product {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    width: 100%;
+    border-radius: 8px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.product h3 {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.product p.price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff;
+    margin: 10px 0;
+}
+
+.product p.description {
+    font-size: 0.9em;
+    color: #555;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.quantity button {
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.quantity button:hover {
+    background-color: #0056b3;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    font-size: 1.1rem;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+
 /* Checkout Button */
 #checkout-button {
     padding: 10px 20px;
@@ -484,3 +839,4 @@ thead th {
 #checkout-button:hover {
     background-color: #0056b3;
 }
+

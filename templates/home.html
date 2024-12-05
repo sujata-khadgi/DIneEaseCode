@@ -1,20 +1,22 @@
 {% extends "base.html" %}
 
-{% block title %}Welcome to Our Food Ordering Service{% endblock %}
+{% block title %}Our Special Menu{% endblock %}
 
 {% block content %}
+<!-- Hero Section -->
 <div class="hero-section">
-    <h1>Delicious Meals Delivered to Your Door!</h1>
+    <h1>Delicious Meals!</h1>
     <p>Browse our menu and enjoy the best food in town.</p>
 </div>
 
+<!-- Featured Products Section -->
 <section class="featured-products">
     <h2>Featured Items</h2>
     <div class="product-list">
-        {% for product in products %}
+        {% for product in featured_products %}
         <div class="product" id="product-{{ forloop.counter }}">
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            <h2>{{ product.name }}</h2>
+            <h3>{{ product.name }}</h3>
             <p class="price">NPR {{ product.price|floatformat:2 }}</p>
             <p class="description">{{ product.description }}</p>
 
@@ -24,32 +26,103 @@
                 <button type="button" onclick="increaseQuantity('qty{{ forloop.counter }}')">+</button>
             </div>
 
-            <button class="btn-primary" onclick="addToCart('{{ product.name }}', 'qty{{ forloop.counter }}')">Add to Cart</button>
+            <button class="btn-primary" onclick="addToCart('{{ product.id }}', 'qty{{ forloop.counter }}')">Add to Cart</button>
         </div>
+        {% empty %}
+        <p>No featured items available at the moment.</p>
         {% endfor %}
     </div>
 </section>
+<!-- Menu Section -->
+<section class="menu-section">
+    <div class="container">
+        <h2 class="section-title">Our Special Menu</h2>
+        
+        <!-- Filter Buttons -->
+        <div class="category-tabs">
+            <button class="category-tab active" onclick="filterCategory('all')">All</button>
+            <button class="category-tab" onclick="filterCategory('lunch')">Lunch</button>
+            <button class="category-tab" onclick="filterCategory('breakfast')">Breakfast</button>
+            <button class="category-tab" onclick="filterCategory('snacks')">Snacks</button>
+            <button class="category-tab" onclick="filterCategory('drinks')">Drinks</button>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="product-list">
+            {% for product in menu_products %}
+            <div class="product category-{{ product.category }}" id="product-{{ forloop.counter }}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p class="price">NPR {{ product.price|floatformat:2 }}</p>
+                <p class="description">{{ product.description }}</p>
+
+                <div class="quantity">
+                    <button type="button" onclick="decreaseQuantity('qty{{ forloop.counter }}')">-</button>
+                    <input type="number" id="qty{{ forloop.counter }}" value="1" min="1" readonly>
+                    <button type="button" onclick="increaseQuantity('qty{{ forloop.counter }}')">+</button>
+                </div>
+
+                <button class="btn-primary" onclick="addToCart('{{ product.id }}', 'qty{{ forloop.counter }}')">Add to Cart</button>
+            </div>
+            {% empty %}
+            <p>No menu items available at the moment.</p>
+            {% endfor %}
+        </div>
+
+        <button class="btn-secondary" onclick="window.location.href='/menu'">Explore All Menu</button>
+    </div>
+</section>
+{% endblock %}
 
 <script>
-    function increaseQuantity(id) {
-        const quantityInput = document.getElementById(id);
-        let currentQuantity = parseInt(quantityInput.value);
-        quantityInput.value = currentQuantity + 1;
+    // Filter menu items by category
+    function filterCategory(category) {
+        // Update active tab
+        document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelector(`[onclick="filterCategory('${category}')"]`).classList.add('active');
+
+        // Filter items
+        document.querySelectorAll('.product').forEach(product => {
+            if (category === 'all' || product.classList.contains(`category-${category}`)) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
     }
 
+    // Increase quantity
+    function increaseQuantity(id) {
+        const input = document.getElementById(id);
+        input.value = parseInt(input.value) + 1;
+    }
+
+    // Decrease quantity
     function decreaseQuantity(id) {
-        const quantityInput = document.getElementById(id);
-        let currentQuantity = parseInt(quantityInput.value);
-        if (currentQuantity > 1) {
-            quantityInput.value = currentQuantity - 1;
+        const input = document.getElementById(id);
+        if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
         }
     }
 
-    function addToCart(productName, quantityId) {
-        const quantityInput = document.getElementById(quantityId);
-        const quantity = quantityInput.value;
-        alert(`Added ${quantity} of ${productName} to the cart!`);
-        // Replace alert with actual cart logic as needed
+    // Add product to cart
+    function addToCart(productId, quantityId) {
+        const quantity = document.getElementById(quantityId).value;
+        fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Product added to cart!');
+            } else {
+                alert('Failed to add product to cart.');
+            }
+        });
     }
 </script>
-{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>QR Codes for Tables</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Table Number</th>
+                <th>QR Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for table_number in table_numbers %}
+            <tr>
+                <td>Table {{ table_number }}</td>
+                <td>
+                    <img src="{% url 'generate_qr' table_number=table_number %}" alt="QR Code for Table {{ table_number }}">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

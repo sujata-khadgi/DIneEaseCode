@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="background-color: #ffffff; border-radius: 15px; padding: 40px 60px; max-width: 600px; margin: 50px auto; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); text-align: center; font-family: 'Poppins', sans-serif;">
+    <!-- Thank You Message -->
+    <h2 style="font-size: 30px; color: #28a745; margin-bottom: 20px;">Thank You for Your Order!</h2>
+    <p style="font-size: 16px; color: #555;">We have received your order and are preparing it for you.</p>
+
+    <!-- Order Summary -->
+    <div style="margin: 30px 0;">
+        <h4 style="font-size: 22px; color: #333; margin-bottom: 10px;">Order Summary</h4>
+        <p style="font-size: 18px; color: #666;">Your total bill is: <strong>NPR {{ total_bill|floatformat:2 }}</strong></p>
+        <p style="font-size: 18px; color: #666;">Please pay at the counter when you collect your order.</p>
+    </div>
+
+    <!-- Call-to-Action Button -->
+    <a href="{% url 'home' %}" class="btn btn-primary" 
+       style="display: inline-block; font-size: 16px; padding: 10px 20px; color: white; background-color: #28a745; text-decoration: none; border-radius: 5px; margin-top: 20px;">
+        Ok
+    </a>
+</div>
+{% endblock %}

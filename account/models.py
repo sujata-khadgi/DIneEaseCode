@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class UserManager(BaseUserManager):
@@ -27,7 +28,6 @@ class UserManager(BaseUserManager):
         user = self.create_user(email,password=password)
         user.admin = True
         user.staff = True
-        user.driver = False
         user.customer = False
         user.save(using=self._db)
         return user
@@ -37,7 +37,6 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     admin = models.BooleanField(default=False)
-    driver = models.BooleanField(default=False)
     staff= models.BooleanField(default=False)
     customer = models.BooleanField(default=False)
 
@@ -64,18 +63,41 @@ class User(AbstractBaseUser):
     def is_admin(self):
         return self.admin
     
+
 class Product(models.Model):
-    name = models.CharField(max_length =255)
-    price = models.DecimalField(decimal_places=2, max_digits=10)
-    description = models.TextField()
-    image = models.ImageField()
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='products/')
+    category = models.CharField(
+        max_length=50, 
+        choices=[('lunch', 'Lunch'), ('breakfast', 'Breakfast'), ('snacks', 'Snacks'), ('drinks', 'Drinks')], 
+        default='lunch'
+    )
+    is_featured = models.BooleanField(default=False)  # Indicates if the product is featured
+    is_special = models.BooleanField(default=False)   # Indicates if the product belongs to the special menu
 
     def __str__(self):
         return self.name
-    
+
+# account/models.py
 class CartItems(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    quantity = models.PositiveBigIntegerField(default=1)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cart_items"
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, default=1, related_name="cart_items")
+    quantity = models.PositiveIntegerField(default=1)  # Using PositiveIntegerField for quantity
+
+    def __str__(self):
+        return f"{self.quantity} of {self.product.name} for {self.user.email}"
 
 
+class MenuItem(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='menu_images/')
+    available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name

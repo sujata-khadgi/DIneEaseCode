@@ -1,41 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>My Cart ({{ cart_products.count }} items)</h2>
+<div class="cart-container" style="padding: 20px; background: #f9f9f9; border-radius: 10px; max-width: 900px; margin: auto;">
+    <h2 class="mb-4" style="font-size: 26px;">My Cart ({{ cart_products|length }} items)</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price (NPR)</th>
-            <th>Subtotal (NPR)</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in cart_products %}
-        <tr>
-            <td>{{ item.product.name }}</td>
-            <td>
-                <form action="{% url 'update_cart_item' item.id %}" method="POST">
-                    {% csrf_token %}
-                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
-                    <button type="submit">Update</button>
-                </form>
-            </td>
-            <td>NPR {{ item.product.price|floatformat:2 }}</td>
-            <td>NPR {{ item.subtotal|floatformat:2 }}</td>
-        </tr>
-        {% endfor %}
-        <tr>
-            <td colspan="3"><strong>Total</strong></td>
-            <td><strong>NPR {{ total_price|floatformat:2 }}</strong></td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table table-bordered table-hover" style="font-size: 14px;">
+        <thead class="table-medium">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price (NPR)</th>
+                <th>Subtotal (NPR)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_products %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>
+                    <form action="{% url 'update_cart_item' item.product.id %}" method="POST" class="d-flex align-items-center">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control" style="width: 60px; font-size: 12px; padding: 2px; margin-right: 5px;">
+                        <button type="submit" class="btn btn-sm btn-primary" style="font-size: 12px; padding: 5px 10px; margin-left: 2px;">Update</button>
+                    </form>
+                </td>
+                <td>NPR {{ item.product.price|floatformat:2 }}</td>
+                <td>NPR {{ item.subtotal|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'remove_from_cart' product_id=item.product.id %}" class="btn btn-sm btn-danger" style="font-size: 12px; padding: 5px 10px;">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3" class="text-end"><strong>Total</strong></td>
+                <td colspan="2"><strong>NPR {{ total_price|floatformat:2 }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
 
-<div class="cart-summary">
-    <p><span>Total:</span> NPR {{ total_price|floatformat:2 }}</p>
-    <button id="checkout-button" onclick="window.location.href='{% url 'checkout' %}'">Checkout</button>
-</div>
-{% endblock %}
+    <!-- Section for allergies or dietary needs -->
+    <div class="mt-4">
+        <h4>Specify Dietary Needs or Allergies</h4>
+        <form action="{% url 'update_dietary_needs' %}" method="POST">
+            {% csrf_token %}
+            <textarea name="dietary_needs" rows="3" class="form-control" placeholder="e.g., Gluten-free, no nuts">{{ dietary_needs }}</textarea>
+            <button type="submit" class="btn btn-primary mt-2">Save Preferences</button>
+        </form>
+   
+        <div class="mt-4 text-end">
+            <a href="{% url 'checkout' %}" class="btn btn-success" style="font-size: 14px; padding: 5px 15px;">Proceed to Checkout</a>
+        </div>
+    </div>
+    {% endblock %}
+ 
