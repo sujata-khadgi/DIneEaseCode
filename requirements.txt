@@ -1,0 +1,11 @@
+Django==3.2.8
+requests==2.25.1
+pillow==8.1.2
+pytest==6.2.4
+qrcode[pil]
+django-crispy-forms
+django-storages
+django-cors-headers
+django-ckeditor
+pyyaml
+
