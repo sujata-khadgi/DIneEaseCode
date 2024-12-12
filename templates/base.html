@@ -75,12 +75,39 @@
             }
         }
 
-        function addToCart(productName, quantityId) {
-            const quantityInput = document.getElementById(quantityId);
-            const quantity = quantityInput.value;
-            alert(`Added ${quantity} of ${productName} to the cart!`);
-            // Add further cart logic here
+        // function addToCart(productName, quantityId) {
+        //     const quantityInput = document.getElementById(quantityId);
+        //     const quantity = quantityInput.value;
+        //     alert(`Added ${quantity} of ${productName} to the cart!`);
+        //     // Add further cart logic here
+        // }
+        function addToCart(productId, quantityId) {
+    const quantity = document.getElementById(quantityId).value;
+    fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{csrf_token}}',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quantity: quantity })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+         if (data.status === 'success') {
+            window.location.href = "/cart/"
+         } else {
+             alert('Failed to add product to cart.');
+         }
+     })
+
+     .catch(error => {
+         console.error('Error:', error);
+         alert('An error occurred while adding the product to the cart.');
+     });
+
         }
+
     </script>
 </body>
 </html>

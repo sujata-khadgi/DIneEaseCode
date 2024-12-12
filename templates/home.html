@@ -21,12 +21,12 @@
             <p class="description">{{ product.description }}</p>
 
             <div class="quantity">
-                <button type="button" onclick="decreaseQuantity('qty{{ forloop.counter }}')">-</button>
-                <input type="number" id="qty{{ forloop.counter }}" value="1" min="1" readonly>
-                <button type="button" onclick="increaseQuantity('qty{{ forloop.counter }}')">+</button>
+                <button type="button" onclick="decreaseQuantity('feaqty{{ forloop.counter }}')">-</button>
+                <input type="number" id="feaqty{{ forloop.counter }}" value="1" min="1" readonly>
+                <button type="button" onclick="increaseQuantity('feaqty{{ forloop.counter }}')">+</button>
             </div>
 
-            <button class="btn-primary" onclick="addToCart('{{ product.id }}', 'qty{{ forloop.counter }}')">Add to Cart</button>
+            <button class="btn-primary" onclick="addToCart('{{ product.id }}', 'feaqty{{ forloop.counter }}')">Add to Cart</button>
         </div>
         {% empty %}
         <p>No featured items available at the moment.</p>
@@ -72,6 +72,7 @@
         <button class="btn-secondary" onclick="window.location.href='/menu'">Explore All Menu</button>
     </div>
 </section>
+
 {% endblock %}
 
 <script>
@@ -106,23 +107,49 @@
     }
 
     // Add product to cart
-    function addToCart(productId, quantityId) {
-        const quantity = document.getElementById(quantityId).value;
-        fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ quantity: quantity })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Product added to cart!');
-            } else {
-                alert('Failed to add product to cart.');
-            }
-        });
-    }
+    // function addToCart(productId, quantityId) {
+    //     const quantity = document.getElementById(quantityId).value;
+    //     fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
+    //         method: 'POST',
+    //         headers: {
+    //             'X-CSRFToken': '{{ csrf_token }}',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ quantity: quantity })
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //             alert('Product added to cart!');
+    //         } else {
+    //             alert('Failed to add product to cart.');
+    //         }
+    //     });
+//     function addToCart(productId, quantityId) {
+//     const quantity = document.getElementById(quantityId).value;
+//     console.log(productId,quantityId)
+//     fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ quantity: quantity })
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             alert('Product added to cart!');
+//         } else {
+//             alert('Failed to add product to cart.');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('An error occurred while adding the product to the cart.');
+//     });
+// }
+
+
+  
 </script>

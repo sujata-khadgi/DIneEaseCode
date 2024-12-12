@@ -88,12 +88,13 @@ def cart(request):
 
     total_price = sum(item['subtotal'] for item in cart_products)
     dietary_needs = request.session.get('dietary_needs', '')
-
+    print(dietary_needs)
     return render(request, 'cart.html', {
         'cart_products': cart_products,
         'total_price': total_price,
         'dietary_needs': dietary_needs,
-    })
+    }
+    )
 
 @csrf_exempt  # For simplicity; in production, use CSRF tokens
 def submit_form(request):
@@ -122,14 +123,29 @@ def submit_form(request):
 @csrf_exempt
 def add_to_cart(request, product_id):
     product = Product.objects.get(id=product_id)
-    cart_item, created = CartItems.objects.get_or_create(
-        user=request.user, 
-        product=product
-    )
-    if not created:
-        cart_item.quantity += 1  # Increase quantity if product already exists
-    cart_item.save()
-    return redirect('cart')
+    if request.method == 'POST':
+        print(product, product_id)
+        try:
+
+            cart_item, created = CartItems.objects.get_or_create(
+                user=request.user, 
+                product=product
+            )
+            if not created:
+                cart_item.quantity += 1  # Increase quantity if product already exists
+            cart_item.save()
+            print(cart_item)
+            
+            return JsonResponse({
+                'status':'success',
+                'message':'saved successfully'
+            })
+        except Exception as e:
+            return JsonResponse({
+                'status':'failed',
+                'message':str(e)
+            })
+
 
 @login_required(login_url='login')
 def remove_from_cart(request, product_id):
